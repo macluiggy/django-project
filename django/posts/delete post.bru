@@ -1,0 +1,21 @@
+meta {
+  name: delete post
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/posts/update/1
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Token {{TOKEN}}
+}
+
+body:json {
+  {
+    "content": "this is a post updated"
+  }
+}

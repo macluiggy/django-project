@@ -39,6 +39,8 @@ def create_post(request):
 @permission_classes([IsAuthenticated])
 def update_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    user = request.user
+    request.data['user_id'] = user.id
     serializer = PostSerializer(post, data=request.data)
     if serializer.is_valid():
         serializer.save()
