@@ -26,6 +26,8 @@ from .serializers import PostSerializer
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def create_post(request):
+    user = request.user
+    request.data['user_id'] = user.id
     serializer = PostSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
