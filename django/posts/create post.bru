@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{base_url}}/posts
+  url: {{base_url}}/posts/create
   body: json
   auth: none
 }
@@ -16,8 +16,6 @@ headers {
 
 body:json {
   {
-    "email": "ferrinluiggy@gmail.com",
-    "username": "macluiggy",
-    "password": "#Enero1998."
+    "content": "this is a post"
   }
 }

@@ -1,11 +1,11 @@
 meta {
-  name: get posts
+  name: get all users
   type: http
   seq: 1
 }
 
 get {
-  url: {{base_url}}/posts/get_all
+  url: http://localhost:8000/users/get_all
   body: json
   auth: none
 }
@@ -16,7 +16,6 @@ headers {
 
 body:json {
   {
-    "email": "ferrinluiggy@gmail.com",
     "username": "macluiggy",
     "password": "#Enero1998."
   }

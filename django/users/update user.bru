@@ -1,11 +1,11 @@
 meta {
-  name: update post
+  name: update user
   type: http
-  seq: 3
+  seq: 2
 }
 
 put {
-  url: {{base_url}}/posts/update/1
+  url: http://localhost:8000/users/update/1
   body: json
   auth: none
 }
@@ -16,6 +16,6 @@ headers {
 
 body:json {
   {
-    "content": "this is a post updated"
+    "email": "ferrinluiggy@gmail.com"
   }
 }
