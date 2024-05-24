@@ -55,3 +55,11 @@ def delete_post(request, pk):
     post.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_user_posts(request, pk):
+    posts = Post.objects.filter(user_id=pk)
+    serializer = PostSerializer(posts, many=True)
+    return Response(serializer.data)
+

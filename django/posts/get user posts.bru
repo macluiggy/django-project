@@ -1,0 +1,23 @@
+meta {
+  name: get user posts
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{base_url}}/posts/get_all
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Token {{TOKEN}}
+}
+
+body:json {
+  {
+    "email": "ferrinluiggy@gmail.com",
+    "username": "macluiggy",
+    "password": "#Enero1998."
+  }
+}
