@@ -7,3 +7,9 @@ class Like(models.Model):
     id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    
+    class Meta:
+        unique_together = ('user', 'post')
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'post'], name='unique_like')
+        ]

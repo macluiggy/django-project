@@ -25,5 +25,6 @@ urlpatterns = [
     re_path('auth/profile', profile),
     re_path('users/get_all', get_all_users),
     path('users/update/<int:pk>', update_user),
-    path('posts/', include('posts.urls'))
+    path('posts/', include('posts.urls')),
+    path('likes/', include('likes.urls')),
 ]
