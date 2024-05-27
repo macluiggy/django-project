@@ -8,6 +8,7 @@ from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from .serializers import PostSerializer
+from django.db.models import Count
 
 # Create your views here.
 
@@ -15,7 +16,7 @@ from .serializers import PostSerializer
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def get_posts(request):
-    posts = Post.objects.all()
+    posts = Post.objects.annotate(likes_count=Count('likes')).order_by('-likes_count')
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
 
