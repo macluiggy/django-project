@@ -30,5 +30,10 @@ def add_like(request: Request, pk: int):
 @permission_classes([IsAuthenticated])
 def remove_like(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    Like.objects.filter(user=request.user, post=post).delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+    like = Like.objects.filter(user=request.user, post=post)
+    if like.exists():
+        like.delete()
+        return Response({"detail": "Like removed."}, status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response({"detail": "Like not found."}, status=status.HTTP_404_NOT_FOUND)
+    
