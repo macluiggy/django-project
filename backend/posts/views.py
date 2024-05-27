@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from requests import Request
 from rest_framework.decorators import api_view 
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
@@ -34,7 +35,7 @@ def get_posts(request):
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
-def create_post(request):
+def create_post(request: Request):
     user = request.user
     request.data['user_id'] = user.id
     serializer = PostSerializer(data=request.data)
