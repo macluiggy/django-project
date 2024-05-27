@@ -7,14 +7,12 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-
 from comments.models import Comment
 from likes.models import Like
 from .serializers import PostSerializer
 from django.db.models import Count
 from .models import Post
 from .serializers import PostSerializer
-
 from django.db.models import Subquery, OuterRef
 from django.db import models
 
