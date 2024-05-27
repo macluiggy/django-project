@@ -18,9 +18,12 @@ from .serializers import LikeSerializer
 @permission_classes([IsAuthenticated])
 def add_like(request: Request, pk: int):
     post = get_object_or_404(Post, pk=pk)
-    like = Like.objects.create(user=request.user, post=post)
-    serializer = LikeSerializer(like)
-    return Response(serializer.data, status=status.HTTP_201_CREATED)
+    like, created = Like.objects.get_or_create(user=request.user, post=post)
+    if created:
+        serializer = LikeSerializer(like)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response({"detail": "You have already liked this post."}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
 @authentication_classes([TokenAuthentication])
