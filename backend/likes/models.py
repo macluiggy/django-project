@@ -10,7 +10,6 @@ class Like(models.Model):
     
     class Meta:
         db_table = 'likes'
-        unique_together = ('user', 'post')
         constraints = [
             models.UniqueConstraint(fields=['user', 'post'], name='unique_like')
         ]
