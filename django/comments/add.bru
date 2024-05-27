@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: http://localhost:8000/likes/add/1
+  url: {{base_url}}/comments/add/1
   body: json
   auth: none
 }
@@ -16,7 +16,6 @@ headers {
 
 body:json {
   {
-    "username": "macluiggy",
-    "password": "#Enero1998."
+    "content": "hello"
   }
 }
