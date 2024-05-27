@@ -27,4 +27,5 @@ urlpatterns = [
     path('users/update/<int:pk>', update_user),
     path('posts/', include('posts.urls')),
     path('likes/', include('likes.urls')),
+    path('comments/', include('comments.urls')),
 ]
