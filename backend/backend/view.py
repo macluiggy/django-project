@@ -46,8 +46,8 @@ def register(request):
 def profile(request):
     print(request.user)
     serializer = UserSerializer(instance=request.user)
-    # return Response('You are login with {}'.format(request.user.username), status=status.HTTP_200_OK)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response('You are login as {}'.format(request.user.username), status=status.HTTP_200_OK)
+    # return Response(serializer.data, status=status.HTTP_200_OK)
     
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
