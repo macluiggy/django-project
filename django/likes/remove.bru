@@ -1,11 +1,11 @@
 meta {
-  name: update user
+  name: remove
   type: http
   seq: 2
 }
 
-post {
-  url: {{base_url}}/likes/add
+delete {
+  url: {{base_url}}/likes/remove
   body: json
   auth: none
 }
