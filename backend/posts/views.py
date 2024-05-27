@@ -7,21 +7,31 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+
+from comments.models import Comment
+from likes.models import Like
 from .serializers import PostSerializer
 from django.db.models import Count
+from .models import Post
+from .serializers import PostSerializer
 
-# Create your views here.
+from django.db.models import Subquery, OuterRef
+from django.db import models
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def get_posts(request):
-    posts = Post.objects.annotate(likes_count=Count('likes')).order_by('-likes_count')
+    likes_subquery = Like.objects.filter(post=OuterRef('pk')).values('post').order_by().annotate(count=Count('id')).values('count')
+    comments_subquery = Comment.objects.filter(post=OuterRef('pk')).values('post').order_by().annotate(count=Count('id')).values('count')
+
+    posts = Post.objects.annotate(
+        likes_count=Subquery(likes_subquery, output_field=models.IntegerField()),
+        comments_count=Subquery(comments_subquery, output_field=models.IntegerField())
+    ).order_by('-likes_count')
+
     serializer = PostSerializer(posts, many=True)
     return Response(serializer.data)
-
-from .models import Post
-from .serializers import PostSerializer
 
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
