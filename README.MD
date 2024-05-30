@@ -61,8 +61,8 @@ use a request body like this:
     "username": "admin",
     "password": "admin",
     "email": "admin@mail.com",
-    "area": 1, // the id of the area you created
-    "role": 1, // the id of the role you created
+    "area_id": 1, // the id of the area you created
+    "role_id": 1, // the id of the role you created
 }
 
 ```
