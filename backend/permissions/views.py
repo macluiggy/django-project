@@ -6,7 +6,7 @@ from rest_framework.request import Request
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from .serializers import PermissionSerializer, RolePermissionSerializer
-from .models import Permission
+from .models import Permission, RolePermission
 
 # Create your views here.
 @api_view(['POST'])
@@ -37,3 +37,11 @@ def create_role_permission(request: Request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def list_role_permission(request: Request):
+    role_permissions = RolePermission.objects.all()
+    serializer = RolePermissionSerializer(role_permissions, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)

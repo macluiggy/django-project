@@ -1,11 +1,11 @@
 meta {
-  name: create role permission
+  name: get role permission
   type: http
-  seq: 1
+  seq: 2
 }
 
-post {
-  url: {{base_url}}/permissions/role_permission/create
+get {
+  url: {{base_url}}/permissions/role_permission/get_all
   body: json
   auth: none
 }
@@ -18,6 +18,6 @@ body:json {
   {
     "allowed": true,
     "permission": 1,
-    "role": 3
+    "role": 1
   }
 }
