@@ -11,10 +11,11 @@ from rest_framework.authentication import TokenAuthentication
 from posts.models import Post
 from comments.models import Comment
 from .serializers import CommentSerializer
+from permissions.permissions import HasPermissionToComment
 
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated, HasPermissionToComment])
 def add_comment(request: Request, post_id: int):
     post = get_object_or_404(Post, pk=post_id)
     data = {
