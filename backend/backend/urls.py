@@ -28,4 +28,8 @@ urlpatterns = [
     path('posts/', include('posts.urls')),
     path('likes/', include('likes.urls')),
     path('comments/', include('comments.urls')),
+    path('area/', include('area.urls')),
+    path('country/', include('country.urls')),
+    path('roles/', include('roles.urls')),
+    path('permissions/', include('permissions.urls')),
 ]
