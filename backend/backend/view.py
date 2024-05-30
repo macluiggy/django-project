@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+from roles.serializers import UserRolesSerializer
 
 @api_view(['POST'])
 def login(request):
@@ -33,6 +34,13 @@ def register(request):
         user.save()
         
         token = Token.objects.create(user=user)
+        
+        area = request.data['area']
+        role = request.data['role']
+        user_roles_serializer_data = { 'user': user.id, 'area': area, 'role': role }
+        user_roles_serializer = UserRolesSerializer(data=user_roles_serializer_data)
+        if user_roles_serializer.is_valid():
+            user_roles_serializer.save()
         return Response({'token': token.key, 'user': serializer.data}, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
