@@ -1,5 +1,9 @@
+from gc import get_objects
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from sympy import true
+
+from roles.models import UserRole
 from .serializers import UserSerializer
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
@@ -75,3 +79,13 @@ def update_user(request, pk):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def get_user_roles(request):
+    user_id = request.user.id
+    user = get_object_or_404(User, pk=user_id)
+    user_roles = UserRole.objects.filter(user=user)
+    serializer = UserRolesSerializer(user_roles, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)

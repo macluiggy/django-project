@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path, re_path
-from .view import get_all_users, login, register, profile, update_user
+from .view import get_all_users, login, register, profile, update_user, get_user_roles
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +25,7 @@ urlpatterns = [
     re_path('auth/profile', profile),
     re_path('users/get_all', get_all_users),
     path('users/update/<int:pk>', update_user),
+    path('users/roles/get', get_user_roles),
     path('posts/', include('posts.urls')),
     path('likes/', include('likes.urls')),
     path('comments/', include('comments.urls')),

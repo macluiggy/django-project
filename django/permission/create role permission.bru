@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{base_url}}/roles/role_permission/create
+  url: {{base_url}}/permissions/role_permission/create
   body: json
   auth: none
 }
@@ -16,7 +16,8 @@ headers {
 
 body:json {
   {
-    "name": "Admin",
-    "country": 3
+    "allowed": true,
+    "permission": 1,
+    "role": 1
   }
 }
