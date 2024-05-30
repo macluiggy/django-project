@@ -9,6 +9,7 @@ class Area(models.Model):
     
     class Meta:
         db_table = 'area'
+        unique_together = ('name', 'country')
 
     def __str__(self):
         return self.name
