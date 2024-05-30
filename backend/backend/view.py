@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from sympy import true
 
-from roles.models import UserRole
+from roles.models import UserRole, Role
 from .serializers import UserSerializer
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
@@ -13,6 +13,7 @@ from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from roles.serializers import UserRolesSerializer
+from area.models import Area
 
 @api_view(['POST'])
 def login(request):
@@ -28,6 +29,14 @@ def login(request):
 @api_view(['POST'])
 def register(request):
     
+        
+    area = request.data['area']
+    # verify if the area exists
+    area = get_object_or_404(Area, pk=area)
+    role = request.data['role']
+    # verify if the role exists
+    role = get_object_or_404(Role, pk=role)
+    
     serializer = UserSerializer(data=request.data)
     
     if serializer.is_valid():
@@ -38,9 +47,6 @@ def register(request):
         user.save()
         
         token = Token.objects.create(user=user)
-        
-        area = request.data['area']
-        role = request.data['role']
         user_roles_serializer_data = { 'user': user.id, 'area': area, 'role': role }
         user_roles_serializer = UserRolesSerializer(data=user_roles_serializer_data)
         if user_roles_serializer.is_valid():
