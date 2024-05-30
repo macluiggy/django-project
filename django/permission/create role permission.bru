@@ -1,11 +1,11 @@
 meta {
-  name: create
+  name: create role permission
   type: http
-  seq: 1
+  seq: 2
 }
 
 post {
-  url: {{base_url}}/permissions/create
+  url: {{base_url}}/roles/role_permission/create
   body: json
   auth: none
 }
@@ -16,6 +16,7 @@ headers {
 
 body:json {
   {
-    "name": "posts.comment"
+    "name": "Admin",
+    "country": 3
   }
 }

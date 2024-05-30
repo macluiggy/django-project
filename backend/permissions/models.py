@@ -16,9 +16,6 @@ class RolePermission(models.Model):
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
     permission = models.ForeignKey(Permission, on_delete=models.CASCADE)
     allowed = models.BooleanField(default=True)
-    
-    class Meta:
-        db_table = 'role_permissions'
-
     class Meta:
         unique_together = ('role', 'permission')
+        db_table = 'role_permissions'
