@@ -5,4 +5,5 @@ urlpatterns = [
     # path('add/<int:post_id>', views.add_comment, name='add_like'),
     # path('remove/<int:post_id>', views.remove_comment, name='remove_like'),
     path('create', views.create, name='add_role'),
+    path('get_all', views.list, name='list_role'),
 ]

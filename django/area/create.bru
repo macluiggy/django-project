@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{base_url}}/permissions/create
+  url: {{base_url}}/area/create
   body: json
   auth: none
 }
@@ -16,6 +16,7 @@ headers {
 
 body:json {
   {
-    "name": "posts.comment"
+    "name": "Contabilidad",
+    "country": 1
   }
 }

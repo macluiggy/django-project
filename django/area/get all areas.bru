@@ -1,11 +1,11 @@
 meta {
-  name: create
+  name: get all areas
   type: http
-  seq: 1
+  seq: 2
 }
 
-post {
-  url: {{base_url}}/permissions/create
+get {
+  url: {{base_url}}/area/get_all
   body: json
   auth: none
 }
@@ -16,6 +16,7 @@ headers {
 
 body:json {
   {
-    "name": "posts.delete"
+    "name": "Contabilidad",
+    "country": 1
   }
 }

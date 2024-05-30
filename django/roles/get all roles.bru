@@ -1,11 +1,11 @@
 meta {
-  name: create
+  name: get all roles
   type: http
-  seq: 1
+  seq: 2
 }
 
 post {
-  url: {{base_url}}/permissions/create
+  url: {{base_url}}/roles/create
   body: json
   auth: none
 }
@@ -16,6 +16,7 @@ headers {
 
 body:json {
   {
-    "name": "posts.delete"
+    "name": "signer",
+    "country_id": 1
   }
 }

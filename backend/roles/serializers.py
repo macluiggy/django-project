@@ -5,12 +5,13 @@ from area.serializers import AreaSerializer
 from country.serializers import CountrySerializer
 from permissions.serializers import RolePermissionSerializer
 class RolesSerializer(serializers.ModelSerializer):
-    country = CountrySerializer()
+    country_id = serializers.IntegerField(write_only=True)
+    country = CountrySerializer(many=False, read_only=True)
     role_permissions = RolePermissionSerializer(many=True, read_only=True)
 
     class Meta:
         model = Role
-        fields = ['id', 'name', 'country', 'role_permissions']
+        fields = '__all__'
         
 class UserRolesSerializer(serializers.ModelSerializer):
     role = RolesSerializer()
@@ -19,3 +20,4 @@ class UserRolesSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserRole
         fields = '__all__'
+        

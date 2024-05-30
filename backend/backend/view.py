@@ -38,6 +38,9 @@ def register(request):
     role = get_object_or_404(Role, pk=role)
     
     serializer = UserSerializer(data=request.data)
+        
+    
+    return Response({'token': ' 1234'})
     
     if serializer.is_valid():
         serializer.save()
@@ -54,9 +57,6 @@ def register(request):
         return Response({'token': token.key, 'user': serializer.data}, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-    
-    return Response({'token': ' 1234'})
 
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
