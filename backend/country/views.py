@@ -10,11 +10,7 @@ from country.serializers import CountrySerializer
 
 # Create your views here.
 @api_view(['POST'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def create_country(request: Request):
-    user = request.user
-    request.data['user_id'] = user.id
     serializer = CountrySerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()

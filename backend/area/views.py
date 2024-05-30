@@ -10,8 +10,6 @@ from area.models import Area
 
 # Create your views here.
 @api_view(['POST'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
 def create(request: Request):
     serializer = AreaSerializer(data=request.data)
     if serializer.is_valid():
