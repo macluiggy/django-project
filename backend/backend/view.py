@@ -37,6 +37,10 @@ def register(request):
     # verify if the role exists
     role = get_object_or_404(Role, pk=role)
     
+    # both area and role are linked to a country so we need to verify if the country is the same
+    if area.country != role.country:
+        return Response({'error': 'The area and role are not from the same country'}, status=status.HTTP_400_BAD_REQUEST)
+    
     serializer = UserSerializer(data=request.data)
         
     
