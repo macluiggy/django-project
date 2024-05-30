@@ -10,6 +10,7 @@ class Role(models.Model):
     
     class Meta:
         db_table = 'roles'
+        unique_together = ('name', 'country')
 
     def __str__(self):
         return self.name
