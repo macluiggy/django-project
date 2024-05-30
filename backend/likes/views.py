@@ -11,11 +11,11 @@ from rest_framework.authentication import TokenAuthentication
 from .models import Like
 from posts.models import Post
 from .serializers import LikeSerializer
-
+from permissions.permissions import HasPermissionToComment
 # Create your views here.
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated,  HasPermissionToComment])
 def add_like(request: Request, pk: int):
     post = get_object_or_404(Post, pk=pk)
     like, created = Like.objects.get_or_create(user=request.user, post=post)

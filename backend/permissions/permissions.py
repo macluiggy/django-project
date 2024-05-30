@@ -16,6 +16,7 @@ class HasPermissionToComment(BasePermission):
         user_roles = UserRole.objects.filter(user=user_id)
         
         
+        
         # Check if any of the user's roles has the required permission
         for user_role in user_roles:
             role_permissions = RolePermission.objects.filter(role=user_role.role)

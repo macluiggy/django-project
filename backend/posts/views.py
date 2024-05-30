@@ -37,7 +37,7 @@ def get_posts(request):
 @permission_classes([IsAuthenticated])
 def create_post(request: Request):
     user = request.user
-    request.data['user_id'] = user.id
+    request.data['user'] = user.id
     serializer = PostSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()

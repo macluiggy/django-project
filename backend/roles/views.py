@@ -10,8 +10,8 @@ from roles.models import Role
 
 # Create your views here.
 @api_view(['POST'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([TokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def create(request: Request):
     user = request.user
     serializer = RolesSerializer(data=request.data)

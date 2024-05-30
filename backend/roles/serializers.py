@@ -14,8 +14,8 @@ class RolesSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class UserRolesSerializer(serializers.ModelSerializer):
-    role = RolesSerializer()
-    area = AreaSerializer()
+    # role = RolesSerializer(read_only=True)
+    # area = AreaSerializer(read_only=True)
     
     class Meta:
         model = UserRole

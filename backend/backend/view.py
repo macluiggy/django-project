@@ -30,12 +30,14 @@ def login(request):
 def register(request):
     
         
-    area = request.data['area']
+    area = request.data['area_id']
     # verify if the area exists
     area = get_object_or_404(Area, pk=area)
-    role = request.data['role']
+    area_dictionary = area.__dict__
+    role = request.data['role_id']
     # verify if the role exists
     role = get_object_or_404(Role, pk=role)
+    role_dictionary = role.__dict__
     
     # both area and role are linked to a country so we need to verify if the country is the same
     if area.country != role.country:
@@ -44,20 +46,25 @@ def register(request):
     serializer = UserSerializer(data=request.data)
         
     
-    return Response({'token': ' 1234'})
+    # return Response({'token': ' 1234'})
     
     if serializer.is_valid():
         serializer.save()
         
         user = User.objects.get(username=request.data['username'])
+        
+        user_roles_serializer_data = { 'user': user.id, 'role': role.id, 'area': area.id}
+        user_roles_serializer = UserRolesSerializer(data=user_roles_serializer_data)
+        print( user_roles_serializer.is_valid())
+        if user_roles_serializer.is_valid():
+            user_roles_serializer.save()
+        else:
+            return Response(user_roles_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
         user.set_password(request.data['password'])
         user.save()
         
         token = Token.objects.create(user=user)
-        user_roles_serializer_data = { 'user': user.id, 'area': area, 'role': role }
-        user_roles_serializer = UserRolesSerializer(data=user_roles_serializer_data)
-        if user_roles_serializer.is_valid():
-            user_roles_serializer.save()
         return Response({'token': token.key, 'user': serializer.data}, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -11,5 +11,5 @@ class PostSerializer(serializers.ModelSerializer):
     comments_count = serializers.IntegerField(read_only=True)
     class Meta:
         model = Post
-        fields = ['id', 'user_id', 'title', 'content', 'created_at', 'updated_at', 'likes', 'likes_count', 'comments', 'comments_count']
+        fields = ['id', 'user', 'title', 'content', 'created_at', 'updated_at', 'likes', 'likes_count', 'comments', 'comments_count']
         
